@@ -1,9 +1,9 @@
 
 # Table of Content
-1. [MyShares Project Description](#MyShares Project Description)
-2. [To Do](#To Do)
+1. [MyShares Project Description](#MySharesProjectDescription)
+2. [To Do](#ToDo)
 3. [Requirements](#Requirements)
-4. [Project Status](#Project Status)
+4. [Project Status](#ProjectStatus)
 5. [Reference](#Reference)
 
 
@@ -20,16 +20,14 @@ project. You can reach me via email at
 
 # To Do
 - Import files
-- Data preparation for analysis (select, preprocess, transform)
+- Data preparation for analysis (select, pre-process, transform)
 - Exploratory data analysis (EDA)
 
 
 # Requirements
 Some packages need to be installed before using this code.
-
 - pandas
 - os
-
 For more details from each of those packages try some research on web.
 
 
@@ -48,7 +46,6 @@ Write Files Using `to_csv()` Function
 Using Python for Financial Analysis
 - https://learndatasci.com/tutorials/python-finance-part-yahoo-finance-api-pandas-matplotlib/
 - https://medium.com/@cesar.vieira/analisando-a%C3%A7%C3%B5es-da-bovespa-parte-i-500107703688
-- 
 
 Set Pandas Options
 - https://towardsdatascience.com/10-python-pandas-tricks-to-make-data-analysis-more-enjoyable-cb8f55af8c30
