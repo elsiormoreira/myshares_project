@@ -28,6 +28,7 @@ project. You can reach me via email at
 Some packages need to be installed before using this code.
 - pandas
 - os
+
 For more details from each of those packages try some research on web.
 
 
