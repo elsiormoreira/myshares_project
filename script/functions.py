@@ -2,12 +2,22 @@
 # import modules
 import pandas as pd
 
-# functions
-def raw_b3():
-    """Read B3 data and save raw data as csv file"""
 
-    # import modules
-    import pandas as pd
+# functions
+def set_view():
+    """Set pandas screen view parameters"""
+
+    # set parameters
+    pd.set_option('display.max_rows', 1000)
+    pd.set_option('display.max_columns', 500)
+    pd.set_option('display.width', 1000)
+
+
+def read_raw():
+    """Read B3 stock data and save it as raw csv file"""
+
+    # set global variables
+    global df
 
     # list of columns names
     col_names = ['tipo', 'data', 'bdi', 'codigo', 'mercado', 'empresa',
@@ -33,15 +43,31 @@ def raw_b3():
                      parse_dates=['data', 'data_venc']
                      )
 
-    # export csv raw dataset
+    # export csv raw file
     df.to_csv('raw.csv', index=None)
 
+    # read raw dataset and save as df variable
+    df = pd.read_csv('raw.csv')
 
-def standardize_view():
-    """Set pandas screen view parameters"""
 
-    # set parameters
-    pd.set_option('display.max_rows', 500)
-    pd.set_option('display.max_columns', 30)
-    pd.set_option('display.max_colwidth', 30)
-    pd.set_option('display.precision', 2)
+def choose_stock(stock_names, file_name):
+    """Filter stock info from raw data set based on a stock
+    code supplied as argument"""
+
+    # change stock_name to capital letters
+    stock_names = stock_names.upper()
+
+    # filter by stock name
+    df1 = df[df['codigo'] == stock_names]
+
+    # select columns
+    df1 = df1[['data', 'ajuste']]
+
+    # change column name
+    df1 = df1.rename(columns={'ajuste': stock_names})
+
+    # print first 5 rows on screen
+    print(df1.head())
+
+    # save as csv file
+    df1.to_csv(file_name, index=None)
