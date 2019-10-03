@@ -24,7 +24,7 @@ tickers = tickers['ibov'].tolist()
 # change data frame column type
 df['data'] = pd.to_datetime(df['data'])
 
-# clean and prepare data frame
+# clean, transform and prepare data frame
 df_prep = (df
            .loc[:, ['data', 'codigo', 'ajuste']]
            .query('codigo == @tickers')
@@ -32,15 +32,14 @@ df_prep = (df
            .rename(columns = {'data': 'date',
                               'codigo': 'ticker',
                               'ajuste': 'price'})
+           .sort_values(by = ['ticker', 'date'])
            .set_index('date')
            )
 
-# calculate mean, std and ic from each stock
-df_calc = df_prep
-df_calc['pct_change'] = round((df_calc
-                               .groupby('ticker')
-                               .price.pct_change() * 100
-                               ), 2)
+df_prep['pct'] = round((df_prep
+                  .groupby('ticker')
+                  .price.pct_change() * 100
+                  ), 2).fillna(0)
 
 
 #TODO
