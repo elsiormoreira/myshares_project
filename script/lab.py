@@ -16,10 +16,10 @@ pd.set_option('display.width', 1000)
 df = pd.read_csv('raw.csv')
 
 # read tickers file list
-tickers = pd.read_csv('ibov.csv')
+tickers = pd.read_csv('portfolio.csv')
 
 # convert tickers file into a list
-tickers = tickers['ibov'].tolist()
+tickers = tickers['portfolio'].tolist()
 
 # change data frame column type
 df['data'] = pd.to_datetime(df['data'])
@@ -40,6 +40,19 @@ df_prep['pct'] = round((df_prep
                   .groupby('ticker')
                   .price.pct_change() * 100
                   ), 2).fillna(0)
+
+# calculate mean, std and IC
+stat = (df_prep
+        .drop('price', axis = 1)
+        .groupby('ticker')
+        .agg({'pct': ['mean', 'std']})
+        .droplevel(0, axis = 1)
+        .reset_index('ticker')
+        .assign(IC = stat['mean'] / stat['std'])
+        .sort_values('IC', ascending = False)
+        #.rename(columns = {'mean': 'media',
+        #                   'std': 'desvio'})
+        )
 
 
 #TODO
